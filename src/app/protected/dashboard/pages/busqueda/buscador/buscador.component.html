@@ -1,0 +1,61 @@
+<div class="row container mt-4" >
+    <div class="col-3" style="width: auto !important">
+        <h2> Busquedas </h2>
+        <hr>
+        <ul class="list-group" >    
+            <li  class="list-group-item" routerLink="../busqueda" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Buscador</li>
+            <li class="list-group-item" routerLink="../porcategoria" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Por categoria</li>
+        </ul>
+    </div>
+
+    <div class="col-8">
+            <h2> Buscador </h2>
+            <hr>
+            <div class="col">
+                <form (ngSubmit)="buscar()" autocomplete="off"> 
+                    <input type = "text"
+                            name = "termino"
+                            class="form-control"
+                            [(ngModel)]="termino"
+                            placeholder="Buscar documento por titulo"
+                    />
+                </form>
+            </div>
+            <hr>
+            <div class="alert alert-danger" *ngIf="hayError">
+                No se encontro el documento con ese titulo
+            </div>
+            <div class="row" *ngIf="documentos.length > 0">
+                <div class="col">
+                    <table class=" table table-hover">
+                            <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th> Titulo </th>
+                                    <th> Autor </th>
+                                    <th> Categoria</th>
+                                    <th> Biblioteca </th>
+                                    <th> Repositorio </th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let documento of documentos; let i = index ">
+                                    <td> {{i + 1}}</td>
+                                    <td> {{documento.titulo}} </td>
+                                    <td> {{documento.autor}} </td>
+                                    <td> {{documento.categoria}} </td>
+                                    <td> 
+                                        <a href= {{documento.linkB}} target="_blank"> Ir... </a>
+                                    </td>
+                                    <td>
+                                        <a href={{documento.linkR}} target="_blank"> Ir... </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+</div>

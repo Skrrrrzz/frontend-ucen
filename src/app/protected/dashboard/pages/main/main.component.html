@@ -1,19 +1,30 @@
-<!--<mat-drawer-container fullscreen>
-    <mat-sidenav #sidenav>
-        <h1>Menú</h1>
-        <h1>opcion</h1>
-        <h1>xd</h1>
-    </mat-sidenav>
-
-    <mat-toolbar>
-        <button mat-icon-button
-                (click) = "sidenav.toggle">
-            <mat-icon>menu</mat-icon>
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed':''">
+    <div class="logo-container">
+        <button class="logo" (click)="toogleCollapse()">A</button>
+        <div class="logo-text" *ngIf="collapsed">Angular</div>
+        <button class="btn-close"*ngIf="collapsed" (click)="closeSidenav()" >
+            <i class="fal fa-times close-icon"></i>
         </button>
-    </mat-toolbar>
+    </div>
+    <ul class="sidenav-nav">
+        <li class="sidenav-nav-item" *ngFor="let data of navData">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
+                <i class="sidenav-link-icon"[class]="data.icon"></i>
+                <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+            </a>
+        </li>
+        <li class="sidenav-nav-item" (click)="logout()">
+            <a class="sidenav-nav-link" >
+                <i class="sidenav-link-icon fal fa-power-off"></i>
+                <span class="sidenav-link-text" *ngIf="collapsed">Cerrar sesion</span>
+            </a>
+        </li>
+        
 
-</mat-drawer-container>
--->
+    </ul>
+
+</div>
 <!--
 <h1>Dashboard</h1>
 

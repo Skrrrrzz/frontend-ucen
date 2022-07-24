@@ -25,10 +25,9 @@
     
   /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
-  * {
+  *{
       margin: 0px; 
       padding: 0px; 
-      box-sizing: border-box;
       font-family: Poppins-Bold;
   }
   
@@ -38,7 +37,7 @@
   }
   
   /*---------------------------------------------*/
-  a {
+  .alogin {
       font-family: Poppins-Regular;
       font-size: 14px;
       line-height: 1.7;
@@ -49,7 +48,9 @@
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
   }
-  
+  .buscar{
+    box-sizing: initial;
+  }
   a:focus {
       outline: none !important;
   }
@@ -72,10 +73,10 @@
       margin: 0px;
   }
   
-  ul, li {
+  /*ul, li {
       margin: 0px;
       list-style-type: none;
-  }
+  }*/
   
   
   /*---------------------------------------------*/
@@ -94,7 +95,7 @@
   }
   
   /*---------------------------------------------*/
-  button {
+  .buttonlogin {
       outline: none !important;
       border: none;
       background: transparent;
@@ -2904,5 +2905,7 @@
   -ms-align-items: center;
   align-items: center;
   }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;*/
+
+

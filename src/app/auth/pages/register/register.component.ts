@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit{
     email: ['', [Validators.required, Validators.email]],
     name: ['', [Validators.required]],
     rol: ['', [Validators.required] ],
-    semestre:[]
+    semestre:['',[Validators.required]]
 
   })
   constructor(private fb: FormBuilder,

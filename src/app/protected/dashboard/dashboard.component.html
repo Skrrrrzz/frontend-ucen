@@ -1,8 +1,11 @@
 
 <div >
-    <div class="container-login100" style="background-image: url('../../../../assets/images/ucen\ paisaje.jpeg'); display: block !important;">
+    <!--<div class="container-login100" style="background-image: url('../../../../assets/images/ucen\ paisaje.jpeg'); display: block !important;">-->
         <div >
-            <router-outlet></router-outlet>
-        </div>
+            <app-main (onToggleSideNav)="onToggleSideNav($event)"></app-main>
+            <app-body [collapsed]="isSideNavCollapsed"
+            [screenWidth]="screenWidth" ></app-body>
+
+      <!--</div>-->  
     </div>
 </div>
