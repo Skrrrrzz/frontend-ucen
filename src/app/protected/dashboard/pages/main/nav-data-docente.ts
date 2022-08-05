@@ -1,4 +1,4 @@
-export const navbarData = [
+export const navbarDataD = [
     {
         routeLink: 'inicio',
         icon: 'fal fa-home',
@@ -20,10 +20,6 @@ export const navbarData = [
         label: 'Citas'
     },
     {
-        routeLink: 'administrarusuario',
-        icon: 'fal fa-user',
-        label: 'Administrar Usuarios'
-    },{
         routeLink: 'calendario',
         icon: 'fal fa-calendar-alt',
         label: 'Calendario'
@@ -37,11 +33,6 @@ export const navbarData = [
         routeLink: 'perfil',
         icon: 'fal fa-user-circle',
         label: 'Perfil'
-    },
-    {
-        routeLink: 'notificaciones',
-        icon: 'fal fa-bell-exclamation',
-        label: 'Notificaciones'
     }
     
 

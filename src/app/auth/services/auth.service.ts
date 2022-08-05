@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable,of } from 'rxjs';
 import { authResponse, Usuario } from '../interfaces/interfaces';
 import {catchError,map,tap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +11,7 @@ export class AuthService {
 
   private baseUrl:  string = environment.baseUrl;
   private _usuario!:  Usuario;
-  private _roles: string[] = ['Administrador', 'Docente', 'Estudiante'];
+  private _roles: string[] = ['administrador', 'docente', 'estudiante', 'coordinador'];
   private _semestre: number[] = [1,2];
 
   get usuario(){
@@ -20,18 +20,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-    registro(user: string, password: string, email: string, name: string, rol: string, semestre: number){
+    registro(user: string, password: string, email: string, name: string, rol: string, semestre: number, enable: boolean){
       const url = `${this.baseUrl}/auth/new`;
-      const body = {user, password,email,name,rol,semestre}
+      const body = {user, password,email,name,rol,semestre,enable}
 
       return this.http.post<authResponse>(url, body)
       .pipe(
         tap(resp =>{
           if(resp.ok){
-            localStorage.setItem('token', resp.token!);
+            
           }
         }),
-        map(resp => resp.ok),
+        map(resp => resp),
         catchError(err => of(err.error.msg))
       );
     }
@@ -54,6 +54,10 @@ export class AuthService {
         tap(resp =>{
           if(resp.ok){
             localStorage.setItem('token', resp.token!);
+            localStorage.setItem('rol', resp.rol!);
+            localStorage.setItem('id', resp.uid!);
+            localStorage.setItem('semestre',resp.semestre!)
+
           }
         }),
         map(resp => resp.ok),

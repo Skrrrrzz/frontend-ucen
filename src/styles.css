@@ -21,7 +21,11 @@
     font-family: Poppins-SemiBold;
     src: url('./assets/fonts/poppins/Poppins-SemiBold.ttf'); 
   }
-  
+  .spanlink {
+    cursor:pointer;
+    color:blue;
+    text-decoration:underline;
+}
     
   /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
@@ -29,6 +33,54 @@
       margin: 0px; 
       padding: 0px; 
       font-family: Poppins-Bold;
+  }
+  .buttonV{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px;
+    margin-right: 5px;
+  }
+  .buttonR{
+    background-color: #f44336; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px;
+    margin-right: 5px;
+  }
+  .buttonP{
+    background-color: #f44336; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px;
+    margin-right: 5px;
+  }
+  .buttonB{
+    background-color: #555555; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px;
+    margin-right: 5px;
   }
   
   body, html {

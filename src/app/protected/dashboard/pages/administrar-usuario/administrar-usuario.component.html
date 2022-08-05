@@ -1,1 +1,889 @@
-<p>administrar-usuario works!</p>
+<div class="row container col-lg-12 col-sm-12" >
+    <div class="col-lg-3 col-sm-12" style="width: auto !important">
+        <h2> Administrar </h2>
+        <hr>
+        <ul class="list-group" >    
+            <li  class="list-group-item" [ngClass]="opcion === 1? inputActiveClass:''" (click)="cambiarOpcion(1)">Agregar usuario</li>
+            <li class="list-group-item" [ngClass]="opcion === 2? inputActiveClass:''" (click)="cambiarOpcion(2)">Editar usuario</li>
+            <li class="list-group-item" [ngClass]="opcion === 3? inputActiveClass:''" (click)="cambiarOpcion(3)">Eliminar usuario</li>
+            <li class="list-group-item" [ngClass]="opcion === 4? inputActiveClass:''" (click)="cambiarOpcion(4)">Agregar proyecto</li>
+            <li class="list-group-item" [ngClass]="opcion === 5? inputActiveClass:''" (click)="cambiarOpcion(5)">Editar proyecto</li>
+            <li class="list-group-item" [ngClass]="opcion === 6? inputActiveClass:''" (click)="cambiarOpcion(6)">Eliminar proyecto</li>
+            <li class="list-group-item" [ngClass]="opcion === 7? inputActiveClass:''" (click)="cambiarOpcion(7)">Agregar documento</li>
+            <li class="list-group-item" [ngClass]="opcion === 8? inputActiveClass:''" (click)="cambiarOpcion(8)">Editar documento</li>
+            <li class="list-group-item" [ngClass]="opcion === 9? inputActiveClass:''" (click)="cambiarOpcion(9)">Eliminar documento</li>
+            <li class="list-group-item" [ngClass]="opcion === 10? inputActiveClass:''" (click)="cambiarOpcion(10)">Agregar categoria</li>
+            <li class="list-group-item" [ngClass]="opcion === 11? inputActiveClass:''" (click)="cambiarOpcion(11)">Eliminar categoria</li>
+        </ul>
+    </div>
+    <div class=" col-lg-9 col-sm-12 " >
+        <div class="main" *ngIf="opcion===1">
+            <div class="row">
+                <div class="">
+                <form autocomplete="off"
+                [formGroup]="miFormulario"
+                (ngSubmit)="registro()"   >
+                    <div class="card mb-3 content" >
+                        <h1 class="m-3 pt-3">Agregar Usuario</h1>
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Usuario: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="user"
+                            placeholder="Ingrese rut sin digito verificador">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Email: </h5>
+                            </div>
+                            <input class="col-md-9"
+                            type = "text"
+                            formControlName="email"
+                            placeholder="Ingrese email institucional">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Contraseña:</h5>
+                            </div>
+                            <input class="col-md-9"
+                            type = "password"
+                            formControlName="password"
+                            placeholder="Ingrese contraseña minimo 6 digitos">
+                        </div>
+                        <hr>
+                        <div class="row" >
+                            <div class="col-md-3">
+                                <h5> Nombre: </h5>
+                            </div>
+                            <input class="col-md-9"
+                            type = "text"
+                            formControlName="name"
+                            placeholder="Ingrese nombre del usuario">
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5 style="margin-top:8px ;"> Rol: </h5>
+                            </div>
+                            <select class="form-control col-md-9"
+                                formControlName="rol" 
+                                style=" width: 70% !important;
+                                ;
+                                ">
+                                <option value = "">
+                                     -- Seleccione rol --
+                                    </option>
+                                    <option *ngFor="let rol of roles"[value]="rol">{{rol}} </option>
+                            </select>
+                        <hr>
+                        </div>
+                        <div class="row col-lg-12" *ngIf="miFormulario.value.rol === 'estudiante'">
+                            <div class="col-md-3">
+                                <h5> Semestre: </h5>
+                            </div>
+                            <select class="form-control col-md-9"
+                            formControlName="semestre"
+                            style=" width: 70% !important;
+                            ">
+                                <option value = ""> -- Seleccione Semestre -- </option>
+                                <option *ngFor="let sem of semestre"
+                                [value] = "sem"> {{sem}}</option>
+                            </select>
+                        <hr>
+                        </div>
+                        <div>
+                            <button class="buttonV"
+                            type="submit"
+                             [disabled]="miFormulario.invalid">
+                                Registrar
+                            </button>
+                        </div>
+                       </div>
+                    </div>
+                </form>
+              </div>
+
+            </div>
+        </div>
+        <div class="main" *ngIf="opcion===2">
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <h1 class="m-3 pt-3">Editar Usuario</h1>
+                        <select class="col-md-9"
+                        style=" margin-left: 20px; width: 70% !important;" 
+                        [(ngModel)] ="usuario" 
+                         (change)="cargar(usuario)">
+                             <option  value=""> -- Seleccione Usuario -- </option>
+                                <option *ngFor="let dato of datos"
+                                [value] = "dato.user"> {{dato.user}} {{dato.name}}</option> 
+                       </select>
+                        </div>
+                <form autocomplete="off"
+                [formGroup]="miFormulario2"
+                (ngSubmit)="actualizar(ids)"   >
+                    <div class="card mb-3 content">
+
+                        <div class="card-body">
+                        <div class="row col-lg-12">
+                            <div class="col-md-3">
+                                <h5> Usuario: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="user"
+                            [ngModel]="users" >
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Email: </h5>
+                            </div>
+                            <input class="col-md-9"
+                            type = "text"
+                            formControlName="email"
+                            [ngModel]="emails">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5> ¿Cambiar contraseña?: </h5>
+                            </div>
+                            <input class="col-md-1" (click)="habilitarpass()"
+                            type="checkbox">
+                        </div>
+                        <hr>
+                        <div class="row" *ngIf="pass">
+                            <div class="col-md-3">
+                                <h5> Contraseña:</h5>
+                            </div>
+                            <input class="col-md-9"
+                            type = "password"
+                            formControlName="password"
+                            placeholder="Ingrese contraseña minimo 6 digitos">
+                            <hr style = "margin: 10px">
+                        </div>
+
+                        <div class="row" >
+                            <div class="col-md-3">
+                                <h5> Nombre: </h5>
+                            </div>
+                            <input class="col-md-9"
+                            type = "text"
+                            formControlName="name"
+                            [ngModel]="names">
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5 style="margin-top:8px ;"> Rol: </h5>
+                            </div>
+                            <select class="form-control col-md-9"
+                                formControlName="rol"
+                                style=" width: 70% !important;">
+                                <option value = ""> -- Seleccione rol -- </option>
+                                <option [selected]="rols === 'estudiante'" >estudiante</option>
+                                <option [selected]="rols === 'docente'" >docente</option>
+                                <option [selected]="rols === 'coordinador'" >coordinador</option>
+                                <option [selected]="rols === 'administrador'" >administrador</option>
+
+                            </select>
+                        <hr>
+                        </div>
+                        <div class="row col-lg-12" *ngIf="miFormulario2.value.rol === 'estudiante'">
+                            <div class="col-md-3">
+                                <h5> Semestre: </h5>
+                            </div>
+                            <select class="form-control col-md-9"
+                            formControlName="semestre"
+                            style=" width: 70% !important;
+                                ">
+                                <option value = ""> -- Seleccione Semestre -- </option>
+                                <option [selected]="semestres === 1"> 1 </option>
+                                <option [selected]="semestres === 2" > 2 </option>
+                            </select>
+                        <hr>
+                        </div>
+                        <div class="row col-lg-12">
+                            <div class="col-md-3" style="margin-top:8px">
+                                <h5> Habilitar: </h5>
+                            </div>
+                            <div class="col-md-2">
+                            <button  class="buttonV"(click)="habilitar(ids)">
+                                Habilitar
+                            </button>
+                            </div>
+                        <hr>
+                        </div>
+                        <div>
+                            <button class="buttonV"
+                            type="submit"
+                            >
+                                Actualizar
+                            </button>
+                        </div>
+                       </div>
+                    </div>
+                </form>
+              </div>
+
+            </div>
+        </div>
+        <div class = "main" *ngIf="opcion===3">
+            <div class="row">
+                <h1> Eliminar usuario</h1>
+                <div class="col">
+                    <table class=" table table-hover">
+                            <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th> Usuario </th>
+                                    <th> Nombre </th>
+                                    <th> Rol </th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let us of datose ; let i = index ">
+                                    <td> {{i + 1}}</td>
+                                    <td> {{us.user}} </td>
+                                    <td> {{us.name}} </td>
+                                    <td> {{us.rol}} </td>
+                                    <td>     
+                                        <button  class="buttonR"(click)="eliminar(us._id)">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="main" *ngIf="opcion===4">
+            <div class="row">
+                <div class="">
+                <form autocomplete="off"
+                [formGroup]="miFormulario3"
+                (ngSubmit)="registropro()"   >
+                    <div class="card mb-3 content" >
+                        <h1 class="m-3 pt-3">Agregar Proyecto</h1>
+                        <div class="card-body">
+                        <div class="row col-lg-12">
+                            <div class="col-md-3">
+                                <h5> Titulo: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="titulo"
+                            placeholder="Ingrese titulo del proyecto">
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5> Alumno: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="alumno">
+                                <option value = ""> -- Elegir alumno --</option>
+                                <option *ngFor="let alum of alumproy" [value] = "alum._id">{{alum.user}} {{alum.name}}</option>
+                            </select>
+                            <input class="col-md-1" (click)="habilitaralumno()"
+                            type="checkbox">
+                            <h6 class="col-md-3"> agregar alumno2</h6>
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" *ngIf="alum2 === true">
+                            <div class="col-md-3">
+                                <h5> Alumno2: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="alumno2">
+                                <option value = ""> -- Elegir alumno --</option>
+                                <option *ngFor="let alum2 of alumproy" [value] = "alum2._id">{{alum2.user}} {{alum2.name}}</option>
+                            </select>
+                            <hr style = "margin: 10px">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Profesor guia:</h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeguia">
+                                <option value = ""> -- Elegir Profesor --</option>
+                                <option *ngFor="let profg of profproy" [value]="profg._id">{{profg.user}} {{profg.name}}</option>
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="row" >
+                            <div class="col-md-3">
+                                <h5> Profesor informante: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeinformante">
+                                <option value = ""> -- Elegir profesor --</option>
+                                <option *ngFor="let profi of profproy" [value]="profi._id">{{profi.user}} {{profi.name}}</option>
+                            </select>
+                            <input class="col-md-1" style="margin-left: 5px !important" (click)="habilitarprofei2()"
+                                type="checkbox">
+                                <h6 class="col-md-3"> agregar profesor informante</h6>
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" *ngIf="profi2 === true">
+                            <div class="col-md-3">
+                                <h5> Profesor informante: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeinformante2">
+                                <option value = ""> -- Elegir profesor --</option>
+                                <option *ngFor="let profi2 of profproy" [value] = "profi2._id">{{profi2.user}} {{profi2.name}}</option>
+                            </select>
+                            <input class="col-md-1" style="margin-left: 5px !important" (click)="habilitarprofi3()"
+                                type="checkbox">
+                                <h6 class="col-md-3"> agregar profesor informante</h6>
+                            <hr style = "margin: 10px">
+                        </div>
+                        <div class="row col-lg-12" *ngIf="profi3 === true">
+                            <div class="col-md-3">
+                                <h5> Profesor informante: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeinformante3">
+                                <option value = ""> -- Elegir profesor --</option>
+                                <option *ngFor="let profi3 of profproy" [value] = "profi3._id">{{profi3.user}} {{profi3.name}}</option>
+                            </select>
+                            <hr style = "margin: 10px">
+                        </div>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5 style="margin-top:8px ;"> Profesor PT1: </h5>
+                            </div>
+                            <select class="form-control col-md-8"
+                                formControlName="profesorPt1" 
+                                style=" width: 60% !important;
+                                margin-left: 5px;
+                                ;
+                                ">
+                                <option value = "">
+                                     -- Seleccione profesor --
+                                    </option>
+                                    <option *ngFor="let prof1 of profproy"[value]="prof1._id">{{prof1.user}} {{prof1.name}} </option>
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5 style="margin-top:8px ;"> Coordinador: </h5>
+                            </div>
+                            <select class="form-control col-md-8"
+                                formControlName="coordinador" 
+                                style=" width: 60% !important;
+                                margin-left: 5px;
+                                ;
+                                ">
+                                <option value = "">
+                                     -- Seleccione coordinador --
+                                    </option>
+                                    <option *ngFor="let cor of coordinador"[value]="cor._id">{{cor.user}} {{cor.name}} </option>
+                            </select>
+                        <hr>
+                        </div>                        
+                        <div>
+                            <button class="buttonV"
+                            type="submit">
+                                Registrar
+                            </button>
+                        </div>
+                       </div>
+                    </div>
+                </form>
+              </div>
+
+            </div>
+        </div>
+        <div class="main" *ngIf="opcion===5">
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <h1 class="m-3 pt-3">Editar Proyecto</h1>
+                        <select class="col-md-9"
+                        style=" margin-left: 20px; width: 70% !important;" 
+                        [(ngModel)] ="proyecto" 
+                         (change)="cargarpro(proyecto)">
+                             <option value = ""> -- Seleccione Proyecto -- </option>
+                                <option *ngFor="let datopro of datospro"
+                                [value] = "datopro._id"> {{datopro.titulo}}</option> 
+                       </select>
+                        </div>
+                <form autocomplete="off"
+                [formGroup]="miFormulario4"
+                (ngSubmit)="actualizarpro2(proids)"   >
+                    <div class="card mb-3 content" >
+                       
+                        <div class="card-body">
+                        <div class="row col-lg-12">
+                            <div class="col-md-3">
+                                <h5> Titulo: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="titulo"
+                            [ngModel]="titulos">
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5> Alumno: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="alumno">
+                                <option value = ""> -- Elegir alumno --</option>
+                                <option  *ngFor="let alum of alumproy" [value] = "alum._id" [selected]="alumnos != null? alumnos[0] === alum._id :'' ">{{alum.user}} {{alum.name}}</option>
+                            </select>
+                            <input class="col-md-1" (click)="habilitaralumno()"
+                            type="checkbox">
+                            <h6 class="col-md-3"> agregar alumno2</h6>
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" *ngIf="alum2 === true">
+                            <div class="col-md-3">
+                                <h5> Alumno2: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="alumno2">
+                                <option value = ""> -- Elegir alumno --</option>
+                                <option *ngFor="let alum2 of alumproy" [value] = "alum2._id" [selected]="alumnos2 != null? alumnos2[0] === alum2._id :'' ">{{alum2.user}} {{alum2.name}}</option>
+                            </select>
+                            <hr style = "margin: 10px">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Profesor guia:</h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeguia">
+                                <option value = ""> -- Elegir Profesor --</option>
+                                <option *ngFor="let profg of profproy" [value]="profg._id"[selected]="profeguias != null? profeguias[0] === profg._id :'' ">{{profg.user}} {{profg.name}}</option>
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="row" >
+                            <div class="col-md-3">
+                                <h5> Profesor informante: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeinformante">
+                                <option value = ""> -- Elegir profesor --</option>
+                                <option *ngFor="let profi of profproy" [value]="profi._id"[selected]="profeinformantes != null? profeinformantes[0] === profi._id :'' ">{{profi.user}} {{profi.name}}</option>
+                            </select>
+                            <input class="col-md-1" style="margin-left: 5px !important" (click)="habilitarprofei2()"
+                                type="checkbox">
+                                <h6 class="col-md-3"> agregar profesor informante</h6>
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" *ngIf="profi2 === true">
+                            <div class="col-md-3">
+                                <h5> Profesor informante: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeinformante2">
+                                <option value = ""> -- Elegir profesor --</option>
+                                <option *ngFor="let profi2 of profproy" [value] = "profi2._id"[selected]="profeinformantes2 != null? profeinformantes2[0] === profi2._id :'' ">{{profi2.user}} {{profi2.name}}</option>
+                            </select>
+                            <input class="col-md-1" style="margin-left: 5px !important" (click)="habilitarprofi3()"
+                                type="checkbox">
+                                <h6 class="col-md-3"> agregar profesor informante</h6>
+                            <hr style = "margin: 10px">
+                        </div>
+                        <div class="row col-lg-12" *ngIf="profi3 === true">
+                            <div class="col-md-3">
+                                <h5> Profesor informante: </h5>
+                            </div>
+                            <select class="form-control col-md-5"
+                            style = "width: 40% !important"
+                            formControlName="profeinformante3">
+                                <option value = ""> -- Elegir profesor --</option>
+                                <option *ngFor="let profi3 of profproy" [selected]="profeinformantes3 != null? profeinformantes3[0] === profi3._id :'' ">{{profi3.user}} {{profi3.name}}</option>
+                            </select>
+                            <hr style = "margin: 10px">
+                        </div>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5 style="margin-top:8px ;"> Profesor PT1: </h5>
+                            </div>
+                            <select class="form-control col-md-8"
+                                formControlName="profesorPt1" 
+                                style=" width: 60% !important;
+                                margin-left: 5px;
+                                ;
+                                ">
+                                <option value = "">
+                                     -- Seleccione profesor --
+                                    </option>
+                                    <option *ngFor="let prof1 of profproy"[value]="prof1._id" [selected]="profesorPt1s != null? profesorPt1s[0] === prof1._id:''">{{prof1.user}} {{prof1.name}} </option>
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="row col-lg-12" >
+                            <div class="col-md-3">
+                                <h5 style="margin-top:8px ;"> Coordinador: </h5>
+                            </div>
+                            <select class="form-control col-md-8"
+                                formControlName="coordinador" 
+                                style=" width: 60% !important;
+                                margin-left: 5px;
+                                ;
+                                ">
+                                <option value = "">
+                                     -- Seleccione coordinador --
+                                    </option>
+                                    <option *ngFor="let cor of coordinador"[value]="cor._id" [selected]="cooridnadors != null? cooridnadors[0] === cor._id :'' ">{{cor.user}} {{cor.name}} </option>
+                            </select>
+                        <hr>
+                        </div>
+                        <div class="row col-lg-12">
+                            <div class="col-md-3">
+                                <h5> Habilitar: </h5>
+                            </div>
+                            <div>
+                            <button  class="buttonV"(click)="habilitarpro(proids)">
+                                Habilitar
+                            </button>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div>
+                            
+                            <button class="buttonV"
+                            type="submit">
+                                Registrar
+                            </button>
+                        </div>
+                       </div>
+                    </div>
+                </form>
+              </div>
+
+            </div>
+        </div>
+        <div class = "main" *ngIf="opcion===6">
+            <div class="row">
+                <h1> Eliminar proyecto</h1>
+                <div class="col">
+                    <table class=" table table-hover">
+                            <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th> Titulo </th>
+                                    <th> Alumno(s) </th>
+                                    <th> Profesor guia </th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let usp of datosproyecto ; let i = index ">
+                                    <td> {{i + 1}}</td>
+                                    <td> {{usp.titulo}} </td>
+                                    <td> {{usp.alumno[0].name}} {{usp.alumno2 != null ? usp.alumno2[0].name : ''}} </td>
+                                    <td> {{usp.profeguia[0].name}} </td>
+                                    <td>     
+                                        <button  class="buttonR"(click)="eliminarpro(usp._id)">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="main" *ngIf="opcion === 7">
+            <div class="main" >
+                <div class="row">
+                    <div class="">
+                    <form autocomplete="off"
+                    [formGroup]="miFormulario5"
+                    (ngSubmit)="registroD()"   >
+                        <div class="card mb-3 content" >
+                            <h1 class="m-3 pt-3">Agregar documento</h1>
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Titulo: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="titulo"
+                                placeholder="Ingrese titulo del documento">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Autor: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="autor"
+                                placeholder="Ingrese autor del documento">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Categoria: </h5>
+                                </div>
+                                <select class="form-control col-md-9"
+                                formControlName="categoria"
+                                style=" width: 70% !important;
+                                ">
+                                    <option value = ""> -- Seleccione categoria -- </option>
+                                    <option *ngFor="let sem of datosC"
+                                    [selected]=""[value] = "sem._id"> {{sem.categoria}}</option>
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Link Biblioteca: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="linkB"
+                                placeholder="Ingrese link de la biblioteca ej 'http://pagina...'">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Link Repositorio: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="linkR"
+                                placeholder="Ingrese link del repositorio ej 'http://pagina...'">
+                            </div>
+                            <hr>
+                            <div>
+                            
+                                <button class="buttonV"
+                                type="submit">
+                                   Crear
+                                </button>
+                            </div>
+                        </div>
+                    </div>  
+                    </form>
+                 </div>
+                </div>
+            </div>
+        </div>
+        <div class="main" *ngIf="opcion === 8">
+            <div class="main" >
+                <div class="row">
+                    <div class="">
+                        <h1 class="m-3 pt-3">Editar Documento</h1>
+                        <select class="col-md-9"
+                        style=" margin-left: 20px; width: 70% !important;" 
+                        [(ngModel)] ="usuario" 
+                         (change)="cargarD(usuario)">
+                             <option value = ""> -- Seleccione documento -- </option>
+                                <option *ngFor="let dato of datosD"
+                                [value] = "dato._id"> {{dato.titulo}} {{dato.autor}}</option> 
+                       </select>
+                        </div>
+                    <div class="">
+                    <form autocomplete="off"
+                    [formGroup]="miFormulario6"
+                    (ngSubmit)="actualizarD(idd)"   >
+                        <div class="card mb-3 content" >
+                            <h1 class="m-3 pt-3">Editar documento</h1>
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Titulo: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="titulo"
+                                [ngModel]="titulos2">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Autor: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="autor"
+                                [ngModel]="autors">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Categoria: </h5>
+                                </div>
+                                <select class="form-control col-md-9"
+                                formControlName="categoria"
+                                style=" width: 70% !important;
+                                ">
+                                    <option value = ""> -- Seleccione categoria -- </option>
+                                    <option *ngFor="let sem of datosC;"
+                                    [selected]="sem._id === categorias[0]"[value] = "sem._id"> {{sem.categoria}}</option>
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Link Biblioteca: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="linkB"
+                                [ngModel]="linkBs">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Link Repositorio: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="linkR"
+                                [ngModel]="linkRs">
+                            </div>
+                            <hr>
+                            <div>
+                            
+                                <button class="buttonV"
+                                type="submit">
+                                   Actualizar
+                                </button>
+                            </div>
+                        </div>
+                    </div>  
+                    </form>
+                 </div>
+                </div>
+            </div>
+        </div>
+        <div class="main" *ngIf="opcion ===9">
+            <div class="row">
+                <h1> Eliminar documento</h1>
+                <div class="col">
+                    <table class=" table table-hover">
+                            <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th> Titulo </th>
+                                    <th> Autor</th>
+                                    <th> Categoria </th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let usp of datosD ; let i = index ">
+                                    <td> {{i + 1}}</td>
+                                    <td> {{usp.titulo}} </td>
+                                    <td> {{usp.autor}} </td>
+                                    <td> {{usp.categoria}} </td>
+                                    <td>     
+                                        <button  class="buttonR"(click)="eliminarD(usp._id)">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="main" *ngIf="opcion === 10">
+                <div class="row">
+                    <div class="">
+                    <form autocomplete="off"
+                    [formGroup]="miFormulario7"
+                    (ngSubmit)="registroC()"   >
+                        <div class="card mb-3 content" >
+                            <h1 class="m-3 pt-3">Agregar categoria</h1>
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Nombre: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="categoria"
+                                placeholder="Ingrese nombre de la categoria">
+                            </div>
+                            <hr>
+    
+                            <div>
+                            
+                                <button class="buttonV"
+                                type="submit">
+                                   Crear
+                                </button>
+                            </div>
+                        </div>
+                    </div>  
+                    </form>
+                 </div>
+                </div>
+        </div>
+        <div class="main" *ngIf="opcion ===11">
+            <div class="row">
+                <h1> Eliminar categoria</h1>
+                <div class="col">
+                    <table class=" table table-hover">
+                            <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th> Nombre </th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let usp of datosC ; let i = index ">
+                                    <td> {{i + 1}}</td>
+                                    <td> {{usp.categoria}} </td>
+                                    <td>     
+                                        <button  class="buttonR"(click)="eliminarC(usp._id)">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    
+    </div>
+</div>   

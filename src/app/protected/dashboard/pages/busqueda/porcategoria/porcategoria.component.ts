@@ -16,16 +16,36 @@ import { PaginaService } from '../../../services/pagina.service';
     `
   ]
 })
-export class PorcategoriaComponent {
+export class PorcategoriaComponent implements OnInit {
   
-  categorias: string[] = ['ia','desarrollo web','desarrollo mobile','base de datos'];
+  categorias: any[] = []
   categoriaActiva: string = '';
-  documentos: Documentos[] = [];
+  documentos: any[] = [];
   constructor(private paginaService: PaginaService) { }
 
-  activaCategoria(categoria:string){
-    this.categoriaActiva = categoria;
-    this.paginaService.buscarCategoria(categoria)
-    .subscribe(documentos => this.documentos = documentos);
+  ngOnInit(): void {
+    this.cargarC()
+  }
+  activaCategoria(id:string,categoria:string){
+    this.categoriaActiva = categoria ;
+    this.paginaService.buscarCategoria(id)
+    .subscribe(documentos => {
+        this.documentos = documentos;
+      
+      console.log(this.documentos)
+    })
+
+      
+    
+  }
+  cargarC(){
+    this.paginaService.traerCategorias()
+    .subscribe(datos=>{
+      for(var i = 0; i<datos.length; i=i+1){
+        this.categorias.push(datos[i])
+      }
+        console.log(this.categorias) 
+      
+      })
   }
 }

@@ -1,1 +1,239 @@
-<p>calendario works!</p>
+<div class="col-md-12">
+    <h1 style="text-align:center;"> Fechas </h1>
+</div>
+
+<div *ngIf="idu === 'estudiante' || 'docente'">
+    <div *ngIf="sem === '1' || idu ==='docente'">
+    <h1 style="text-align:center"> Proyecto de titulo 1 </h1>
+    <table class="table" style="margin-top:20px">
+        <thead class="bg-primary text-light">
+            <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Descricpción</th>
+            </tr>
+        </thead>
+        
+        <tbody >
+            <tr *ngFor="let fec of fechas1; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{fec.fecha}}</td>
+                <td>{{fec.titulo}}</td>
+            </tr>
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="sem === '2' || idu==='docente'">
+    <h1 style="text-align: center"> Proyecto de titulo 2 </h1>
+    <table class="table" style="margin-top:20px">
+        <thead class="bg-primary text-light">
+            <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Descricpción</th>
+            </tr>
+        </thead>
+        
+        <tbody >
+            <tr *ngFor="let fec of fechas2; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{fec.fecha}}</td>
+                <td>{{fec.titulo}}</td>
+            </tr>
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div *ngIf="idu ==='coordinador'">
+    <div *ngIf="opcion === 1">
+        <div>
+            <button class="buttonB"(click)="cambiarOpcion(3)">
+                Crear Fecha
+            </button>
+        </div>
+        <div >
+        <h1 style="text-align:center"> Proyecto de titulo 1 </h1> 
+        <table class="table" style="margin-top:20px">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Descricpción</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody >
+                <tr *ngFor="let fec of fechas1; let i = index;">
+                    <td>{{i + 1}}</td>
+                    <td>{{fec.fecha}}</td>
+                    <td>{{fec.titulo}}</td>
+                    <td><button class="buttonV"(click)="tomarId(fec._id)"> Editar</button></td>
+                    <td><button class="buttonR"(click)="eliminarFecha(fec._id)"> Eliminar </button></td>
+                </tr>
+                <tr>
+    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div >
+        <h1 style="text-align: center"> Proyecto de titulo 2 </h1>
+        <table class="table" style="margin-top:20px">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Descricpción</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody >
+                <tr *ngFor="let fec of fechas2; let i = index;">
+                    <td>{{i + 1}}</td>
+                    <td>{{fec.fecha}}</td>
+                    <td>{{fec.titulo}}</td>
+                    <td><button class="buttonV"(click)="tomarId(fec._id)">editar</button></td>
+                    <td><button class="buttonR"(click)="eliminarFecha(fec._id)">eliminar</button></td>
+                </tr>
+                <tr>
+    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div *ngIf="opcion === 2">
+        <div>
+            <button class="buttonB"(click)="cambiarOpcion(1)">
+                <-- Volver
+            </button>
+        </div>
+        <div class=" col-lg-9 col-sm-12 " >
+            <div class="main" >
+                <div class="row">
+                    <div class="">
+                    <form autocomplete="off"
+                    [formGroup]="miFormulario2"
+                    (ngSubmit)="actualizar(idf)"   >
+                        <div class="card mb-3 content" >
+                            <h1 class="m-3 pt-3">Editar fecha</h1>
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Fecha: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="fecha"
+                                [ngModel]="fechas">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Descricpción: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="titulo"
+                                [ngModel]="titulos">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Ramo:</h5>
+                                </div>
+                                <select class="form-control col-md-7"
+                                style="width: 50%"
+                                formControlName="semestre">
+                                    <option value = ""> -- Elegir Ramo --</option>
+                                    <option [selected]="semestres === '1'" value="1">Proyecto de titulo 1</option>
+                                    <option [selected]="semestres ==='2'"value="2">Proyecto de titulo 2</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="buttonV"
+                                type="submit">
+                                    Actualizar
+                                </button>
+                            </div>
+                        </div>
+                    </div>  
+                    </form>
+                 </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div *ngIf="opcion === 3">
+        <div>
+            <button class="buttonB"(click)="cambiarOpcion(1)">
+                <-- Volver
+            </button>
+        </div>
+        <div class=" col-lg-9 col-sm-12 " >
+            <div class="main" >
+                <div class="row">
+                    <div class="">
+                    <form autocomplete="off"
+                    [formGroup]="miFormulario"
+                    (ngSubmit)="registro()"   >
+                        <div class="card mb-3 content" >
+                            <h1 class="m-3 pt-3">Crear fecha</h1>
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Fecha: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="fecha"
+                                placeholder="Ingrese fecha en formato ej'dd/mm/aaaa'">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Descricpción: </h5>
+                                </div>
+                                <input class="col-md-9" 
+                                type = "text"
+                                formControlName="titulo"
+                                placeholder="Ingrese descripción">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5> Ramo:</h5>
+                                </div>
+                                <select class="form-control col-md-7"
+                                style="width: 50%"
+                                formControlName="semestre">
+                                    <option value = ""> -- Elegir Ramo --</option>
+                                    <option  value="1">Proyecto de titulo 1</option>
+                                    <option value="2">Proyecto de titulo 2</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="buttonV"
+                                type="submit">
+                                    Crear
+                                </button>
+                            </div>
+                        </div>
+                    </div>  
+                    </form>
+                 </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

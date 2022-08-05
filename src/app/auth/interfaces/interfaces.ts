@@ -8,6 +8,9 @@ export interface authResponse {
     email?: string;
     user?: string;
     msg?: string;
+    rol?: string;
+    enable?: boolean;
+    semestre?:string;
 }
 
 export interface Usuario{

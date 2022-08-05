@@ -1,7 +1,8 @@
 export interface Documentos {
+    _id: string,
     titulo: string,
     autor: string,
-    categoria: string,
+    categoria:[],
     linkB: string,
     linkR: string
 }

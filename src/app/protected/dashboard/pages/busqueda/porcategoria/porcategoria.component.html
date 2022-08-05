@@ -16,9 +16,9 @@
             <div class = "row">
                 <div class = "col">
                     <button *ngFor="let categoria of categorias"
-                    [class]="(categoria === categoriaActiva) ? 'btn btn-primary' : 'btn btn-outline-primary'"
-                    (click)="activaCategoria(categoria)">
-                        {{categoria | titlecase}}
+                    [class]="(categoria.categoria === categoriaActiva) ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                    (click)="activaCategoria(categoria._id,categoria.categoria)">
+                        {{categoria.categoria | titlecase}}
                     </button>
                     <div class="row" *ngIf="documentos.length > 0">
                         <div class="col">
@@ -39,7 +39,7 @@
                                             <td> {{i + 1}}</td>
                                             <td> {{documento.titulo}} </td>
                                             <td> {{documento.autor}} </td>
-                                            <td> {{documento.categoria}} </td>
+                                            <td> {{documento.categoria[0].categoria}} </td>
                                             <td> 
                                                 <a href= {{documento.linkB}} target="_blank"> Ir... </a>
                                             </td>

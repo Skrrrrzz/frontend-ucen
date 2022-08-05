@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit{
     email: ['', [Validators.required, Validators.email]],
     name: ['', [Validators.required]],
     rol: ['', [Validators.required] ],
-    semestre:['',[Validators.required]]
+    semestre:['']
 
   })
   constructor(private fb: FormBuilder,
@@ -35,8 +35,8 @@ ngOnInit(): void {
 }
 
   registro(){
-    const {user, password,email,name,rol,semestre} = this.miFormulario.value;
-    this.AuthService.registro( user, password,email,name,rol,semestre)
+    const {user, password,email,name,rol,semestre,enable} = this.miFormulario.value;
+    this.AuthService.registro( user, password,email,name,rol,semestre,enable)
     .subscribe( ok => {
       console.log(ok);
       if(ok === true){

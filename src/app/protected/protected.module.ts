@@ -19,7 +19,7 @@ import { BodyComponent } from './dashboard/pages/body/body.component';
 //import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BuscadorComponent } from './dashboard/pages/busqueda/buscador/buscador.component';
 import { PorcategoriaComponent } from './dashboard/pages/busqueda/porcategoria/porcategoria.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -45,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     //NgbModule,
     ProtectedRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ProtectedModule { }

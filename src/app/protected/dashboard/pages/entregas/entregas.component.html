@@ -1,1 +1,600 @@
-<p>entregas works!</p>
+<!-- vista estudiante -->
+<div *ngIf= "rol ==='estudiante'">
+    <h1>Proyecto: {{proy[0].titulo}}</h1>
+<div class="row col-lg-12 col-sm-12">
+    <div class="col-lg-3 col-sm-12 ">
+        <div class="col-3" style="width: auto !important">
+            
+            <hr>
+            <ul class="list-group" >  
+                <li  class="list-group-item " [ngClass]="entrega=== 1? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(1)" >Subir entrega</li>
+                <li class="list-group-item" [ngClass]="entrega === 2? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(2)" >Retroalimentacion</li>
+                <li class="list-group-item" [ngClass]="entrega === 3? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(3)" >FIP</li>
+            </ul>
+        </div>   
+    </div>
+<!-- entregas -->
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 1">
+        <h1>Entregas</h1>
+        <div class="row text-center">
+            <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">33%</button>
+            <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">66%</button>
+            <button class="list-group-item " style="width:25%;"[ngClass]=" opcion === 4? inputActiveClass:''"   (click)="cambiarOpcion(4)">99%</button>
+            <button class="list-group-item " style="width:25%;"[ngClass]=" opcion === 5? inputActiveClass:''"   (click)="cambiarOpcion(5)">100%</button>
+        </div>
+            <table class="table" style="margin-top:20px">
+                <thead class="bg-primary text-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Titulo</th>
+                        <th>Alumno</th>
+                        <th>Fecha</th>
+                        <th>Archivo</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let ent of entregas; let i = index">
+                    <tr *ngIf="ent.tipo ==='33' && opcion===2">
+                        <td>{{i + 1}}</td>
+                        <td>{{ent.titulo}}</td>
+                        <td>{{ent.autor[0].name}}</td>
+                        <td>{{ent.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody> 
+                <tbody *ngFor="let ent of entregas; let i = index">
+                    <tr *ngIf="ent.tipo ==='66' && opcion===3">
+                        <td>{{i + 1}}</td>
+                        <td>{{ent.titulo}}</td>
+                        <td>{{ent.autor[0].name}}</td>
+                        <td>{{ent.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>     
+                <tbody *ngFor="let ent of entregas; let i = index">
+                    <tr *ngIf="ent.tipo ==='99' && opcion===4">
+                        <td>{{i + 1}}</td>
+                        <td>{{ent.titulo}}</td>
+                        <td>{{ent.autor[0].name}}</td>
+                        <td>{{ent.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>     
+                <tbody *ngFor="let ent of entregas; let i = index">
+                    <tr *ngIf="ent.tipo ==='100' && opcion ===5">
+                        <td>{{i + 1}}</td>
+                        <td>{{ent.titulo}}</td>
+                        <td>{{ent.autor[0].name}}</td>
+                        <td>{{ent.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>            
+            </table>
+
+        <div class="card-body" >
+            <hr>
+            <h2>Subir entrega</h2>
+            <br>
+            <select name="drop" id="d" [(ngModel)]="tipoEntrega" class="form-control">
+                <option value="0"> Seleccione una opcion</option>
+                <option value="33"> 33%</option>
+                <option value="66"> 66%</option>
+                <option value="99"> 99%</option>
+                <option value = "100"> 100%</option>
+            </select>
+            <br>
+            <input type="file" id="test" name="test" accept=".pdf" ngModel='archivo' *ngIf="tipoEntrega!=='0' || nombreArchivo !== ''" (change)="onFileSelected($event)"/>
+            <br> <br>
+            <button (click)="subirArchivos(false)" *ngIf="nombreArchivo !== '' && tipoEntrega!=='0'" class="buttonV"> Subir Archivo</button>
+        </div>
+            
+    </div>
+    
+<!-- retroalimentaciones -->
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 2" >
+        <h1>Retroalimentacion</h1>
+        <div class="row text-center">
+            <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">33%</button>
+            <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">66%</button>
+            <button class="list-group-item " style="width:25%;"[ngClass]=" opcion === 4? inputActiveClass:''"   (click)="cambiarOpcion(4)">99%</button>
+            <button class="list-group-item " style="width:25%;"[ngClass]=" opcion === 5? inputActiveClass:''"   (click)="cambiarOpcion(5)">100%</button>
+        </div>
+        <table class="table  " style="margin-top:20px;">
+            <thead class="bg-primary text-light" >
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Profesor</th>
+                    <th>Fecha</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let ret of retro; let i = index">
+                <tr *ngIf="opcion ===2 && ret.tipo === '33'">
+                    <td>{{i + 1}}</td>
+                    <td>{{ret.titulo}}</td>
+                    <td>{{ret.autor[0].name}}</td>
+                    <td>{{ret.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ret.documento,ret.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            <tbody *ngFor="let ret of retro; let i = index">
+                <tr *ngIf="opcion ===3 && ret.tipo === '66'">
+                    <td>{{i + 1}}</td>
+                    <td>{{ret.titulo}}</td>
+                    <td>{{ret.autor[0].name}}</td>
+                    <td>{{ret.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ret.documento,ret.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            <tbody *ngFor="let ret of retro; let i = index">
+                <tr *ngIf="opcion===4 && ret.tipo === '99'">
+                    <td>{{i + 1}}</td>
+                    <td>{{ret.titulo}}</td>
+                    <td>{{ret.autor[0].name}}</td>
+                    <td>{{ret.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ret.documento,ret.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            <tbody *ngFor="let ret of retro; let i = index">
+                <tr *ngIf="opcion===5 && ret.tipo === '100'">
+                    <td>{{i + 1}}</td>
+                    <td>{{ret.titulo}}</td>
+                    <td>{{ret.autor[0].name}}</td>
+                    <td>{{ret.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ret.documento,ret.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<!-- fip -->
+<div class="col-lg-9 col-sm-12 " *ngIf="entrega === 3" >
+    <h1>FIP</h1>
+    
+    <table class="table  " style="margin-top:20px;">
+        <thead class="bg-primary text-light">
+            <tr>
+                <th>#</th>
+                <th>Titulo</th>
+                <th>Alumno/s</th>
+                <th>Fecha</th>
+                <th>Archivo</th>
+            </tr>
+        </thead>
+        <tbody  *ngFor="let ent of entregas; let i = index">
+            <tr *ngIf=" ent.tipo ==='fip'">
+                <td >{{i + 1}}</td>
+                <td >{{ent.titulo}}</td>
+                <td >{{ent.autor[0].name}}</td>
+                <td>{{ent.fecha}}</td>
+                <td ><span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span></td>
+            </tr> 
+        <tbody>
+
+    </table>
+    <br>
+    <div class="card-body" >
+        <hr>
+        <h2>Subir FIP</h2>
+        <br>
+        <input type="file" id="test" name="test" accept=".pdf" ngModel='archivo'  (change)="onFileSelected($event)"/>
+        <br> <br>
+        <button (click)="subirArchivos(true)" *ngIf="nombreArchivo !== '' " class="buttonV"> Subir Archivo</button>
+    </div>
+</div>
+</div>
+</div>
+<!-- vista docente -->
+<div *ngIf="rol ==='docente'">
+    <!-- vista previa profesor -->
+    <div class="container" >
+        <div class="main" *ngIf=" mostrarpro">
+            <h1>Proyectos</h1>
+            <div class="row col-lg-12">
+                <div class="col-md-12">
+                    <div class="card mb-12 content" *ngFor="let pro of proy">
+                     <h1 style="text-align: center;"> {{pro.titulo}}</h1>
+                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5> Integrantes: </h5>
+                            </div>
+                            <div class="col-md-8">
+                                {{pro.alumno[0].name}} {{pro.alumno2 !== null? ' - '+pro.alumno2[0].name : ''}}
+                            </div>
+                        </div>
+                        <div class="row col-md-12" style="margin-top: 30px;">
+                            <button class="col-md-3 buttonB" style="text-align:center;" (click)="vermas(pro._id)">
+                                    Ver más...
+                            </button>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+</div>
+<!-- vista profesor en proyecto -->
+<div *ngIf="!mostrarpro">
+    <div>
+        <button class="buttonB"(click)="volver()">
+                <-- Volver
+        </button>
+    </div>
+   <h1>Proyecto: {{poryact[0].titulo}}</h1>
+<div class="row col-lg-12 col-sm-12">
+    <div class="col-lg-3 col-sm-12 ">
+        <div class="col-3" style="width: auto !important">
+            <hr>
+            <ul class="list-group" >  
+                <li  class="list-group-item " [ngClass]=" entrega === 1? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(1)" >Subir retroalimentacion</li>
+                <li  class="list-group-item " [ngClass]=" entrega === 2? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(2)" >Entregas</li>
+                <li  class="list-group-item " [ngClass]=" entrega === 3? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(3)" >FIP</li>
+                
+            </ul>
+        </div>   
+    </div>
+    <!-- retroalimentaciones -->
+    <div class="col-lg-9 col-sm-12" *ngIf="entrega === 1">
+        <h1>Retroalimentaciones</h1>
+        <div class="row text-center">
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">33%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">66%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 4? inputActiveClass:''"   (click)="cambiarOpcion(4)">99%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 5? inputActiveClass:''"   (click)="cambiarOpcion(5)">100%</button>
+
+        </div>
+        <table class="table" style="margin-top:20px">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Profesor</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                <tr *ngIf="retr.tipo === '33' && opcion===2">
+                    <td>{{i + 1}}</td>
+                    <td>{{retr.titulo}}</td>
+                    <td>{{retr.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                </tr>
+                
+            </tbody>    
+            <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                <tr *ngIf="retr.tipo === '66' && opcion===3">
+                    <td>{{i + 1}}</td>
+                    <td>{{retr.titulo}}</td>
+                    <td>{{retr.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                </tr>
+                
+            </tbody>     
+            <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                <tr *ngIf="retr.tipo === '99' && opcion===4">
+                    <td>{{i + 1}}</td>
+                    <td>{{retr.titulo}}</td>
+                    <td>{{retr.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                </tr>
+                
+            </tbody>     
+            <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                <tr *ngIf="retr.tipo === '100' && opcion===5">
+                    <td>{{i + 1}}</td>
+                    <td>{{retr.titulo}}</td>
+                    <td>{{retr.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                </tr>
+                
+            </tbody>      
+        </table>
+    </div>
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 1 && profeg === true">
+        <h1>Subir retroalimentacion</h1>
+        <br>
+        <select name="drop" id="d" class="form-control"  [(ngModel)]="tipoEntrega">
+            <option value="0"> Seleccione una opcion</option>
+            <option value="33"> 33%</option>
+            <option value="66"> 66%</option>
+            <option value="99"> 99%</option>
+            <option value="100"> 100%</option>
+        </select>
+       <br>
+       <label id="test1"> Archivo Retroalimentacion : </label>
+       <input type="file" id="test1" name="test1" accept=".pdf"  *ngIf="tipoEntrega!=='0' " (change)="onFileSelectedRetro($event)" />
+       <br> <br>
+       <label id="test2"> Archivo Forma Evaluacion  : </label>
+       <input type="file" id="test2" name="test2" accept=".pdf"  *ngIf="tipoEntrega!=='0' " (change)="onFileSelectedEval($event)"/>
+       <br> <br>
+        <button (click)="subirRetro()" *ngIf="nombreArchivoRetro !== '' && nombreArchivoEval!=='' && tipoEntrega!== '0' " class="buttonV"> Subir Archivo</button>
+            
+    </div>
+    
+    <!-- entregas -->
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 2" >
+        <h1>Entregas</h1>
+        <div class="row text-center">
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">33%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">66%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 4? inputActiveClass:''"   (click)="cambiarOpcion(4)">99%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 5? inputActiveClass:''"   (click)="cambiarOpcion(5)">100%</button>
+
+        </div>
+        <table class="table  " style="margin-top:20px;">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Alumno/s</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let ent of entregas; let i = index">
+                <tr *ngIf="opcion===2 && ent.tipo ==='33'" >
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            
+            <tbody *ngFor="let ent of entregas; let i = index;">
+                <tr *ngIf="ent.tipo === '66' && opcion ===3">
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            <tbody *ngFor="let ent of entregas; let i = index;">
+                <tr *ngIf="opcion === 4 && ent.tipo === '99'">
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            <tbody *ngFor="let ent of entregas; let i = index;">
+                <tr *ngIf="opcion === 4 && ent.tipo === '100'">
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <!-- fip -->
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 3" >
+        <h1>FIP</h1>
+        
+        <table class="table  " style="margin-top:20px;">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Alumno/s</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody  *ngFor="let ent of entregas; let i = index">
+                <tr *ngIf="ent.tipo ==='fip'">
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td ><span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span></td>                </tr> 
+            <tbody>
+
+        </table>
+        <br>
+        <div *ngIf="pt1">
+        <input  type="file" id="test" name="test" accept=".pdf" ngModel='archivo' (change)="onFileSelected($event)"/>
+        <br><br>
+            <button type="submit" class="buttonV"> Subir Archivo</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- vista coordinador -->
+<div *ngIf="rol === 'coordinador'">
+    <!-- vista previa coordinador -->
+    <div class="container" >
+        <div class="main" *ngIf=" mostrarpro">
+            <h1>Proyectos</h1>
+            <div class="row col-lg-12">
+                <div class="col-md-12">
+                    <div class="card mb-12 content" *ngFor="let pro of proy">
+                     <h1 style="text-align: center;"> {{pro.titulo}}</h1>
+                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5> Integrantes: </h5>
+                            </div>
+                            <div class="col-md-8">
+                                {{pro.alumno[0].name}} {{pro.alumno2 !== null? ' - '+pro.alumno2[0].name : ''}}
+                            </div>
+                        </div>
+                        <div class="row col-md-12" style="margin-top: 30px;">
+                            <button class="col-md-3 buttonB" style="text-align:center;" (click)="vermas(pro._id)">
+                                    Ver más...
+                            </button>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+</div>
+<!-- vista proyecto coordinador -->
+<div *ngIf="!mostrarpro">
+    <div>
+        <button class="buttonB"(click)="volver()">
+                <-- Volver
+        </button>
+    </div>
+    <h1>Proyecto: {{poryact[0].titulo}}</h1>
+<div class="row col-lg-12 col-sm-12">
+    <div class="col-lg-3 col-sm-12 ">
+        <div class="col-3" style="width: auto !important">
+            <hr>
+            <ul class="list-group" >  
+                <li  class="list-group-item " [ngClass]=" entrega === 1? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(1)" >Retroalimentacion</li>
+                <li  class="list-group-item " [ngClass]=" entrega === 2? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(2)" >Entregas</li>
+                <li  class="list-group-item " [ngClass]=" entrega === 3? inputActiveClass:''" (click)="cambiarEntregaRetroalimentacion(3)" >FIP</li>
+                
+            </ul>
+        </div>   
+    </div>
+    <!-- retroalimentaciones -->
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 1">
+        <h1>Retroalimentacion</h1>
+        <br>
+        <div class="row text-center">
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">33%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">66%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 4? inputActiveClass:''"   (click)="cambiarOpcion(4)">99%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 5? inputActiveClass:''"   (click)="cambiarOpcion(5)">100%</button>
+
+        </div>
+            <table class="table" style="margin-top:20px">
+                <thead class="bg-primary text-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Titulo</th>
+                        <th>Profesor</th>
+                        <th>Fecha</th>
+                        <th>Archivo</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                    <tr *ngIf="retr.tipo ==='33' && opcion===2">
+                        <td>{{i + 1}}</td>
+                        <td>{{retr.titulo}}</td>
+                        <td>{{retr.autor[0].name}}</td>
+                        <td>{{retr.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>
+                <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                    <tr *ngIf="retr.tipo ==='66' && opcion===3">
+                        <td>{{i + 1}}</td>
+                        <td>{{retr.titulo}}</td>
+                        <td>{{retr.autor[0].name}}</td>
+                        <td>{{retr.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>     
+                <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                    <tr *ngIf="retr.tipo ==='99' && opcion===4">
+                        <td>{{i + 1}}</td>
+                        <td>{{retr.titulo}}</td>
+                        <td>{{retr.autor[0].name}}</td>
+                        <td>{{retr.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>     
+                <tbody *ngFor="let retr of retro; let i = index; let contador = index;">
+                    <tr *ngIf="retr.tipo ==='100' && opcion===5">
+                        <td>{{i + 1}}</td>
+                        <td>{{retr.titulo}}</td>
+                        <td>{{retr.autor[0].name}}</td>
+                        <td>{{retr.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(retr.documento,retr.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>          
+            </table>
+            
+    </div>
+    
+    <!-- entregas -->
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 2" >
+        <h1>Entregas</h1>
+        <div class="row text-center">
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 2? inputActiveClass:''" (click)="cambiarOpcion(2)">33%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 3? inputActiveClass:''" (click)="cambiarOpcion(3)">66%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 4? inputActiveClass:''" (click)="cambiarOpcion(4)">99%</button>
+            <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 5? inputActiveClass:''"   (click)="cambiarOpcion(5)">100%</button>
+
+        </div>
+        <table class="table  " style="margin-top:20px;">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Alumno/s</th>
+                    <th>Fecha</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let ent of entregas; let i = index">
+                <tr *ngIf="opcion===2 && ent.tipo ==='33'" >
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td>{{ent.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            
+            <tbody *ngFor="let ent of entregas; let i = index;">
+                <tr *ngIf="ent.tipo === '66' && opcion ===3">
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td>{{ent.fecha}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            <tbody *ngFor="let ent of entregas; let i = index;">
+                <tr *ngIf="opcion === 4 && ent.tipo === '99'">
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td>{{ent.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+            <tbody *ngFor="let ent of entregas; let i = index">
+                <tr *ngIf="opcion===5 && ent.tipo ==='100'" >
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td>{{ent.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <!-- fip -->
+    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 3" >
+        <h1>FIP</h1>
+        
+        <table class="table  " style="margin-top:20px;">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Alumno/s</th>
+                    <th>Fecha</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody  *ngFor="let ent of entregas; let i = index">
+                <tr *ngIf=" ent.tipo ==='fip'">
+                    <td >{{i + 1}}</td>
+                    <td >{{ent.titulo}}</td>
+                    <td >{{ent.autor[0].name}}</td>
+                    <td>{{ent.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
+                </tr> 
+            <tbody>
+        </table>
+        <br>
+    </div>
+</div>
+</div>
+</div>

@@ -1,1 +1,148 @@
-<p>citas works!</p>
+
+<div class="col-md-12">
+    <h1 style="text-align:center;"> Citas </h1>
+</div>
+
+<div *ngIf="idu === 'docente' || idu === 'estudiante'">
+    <table class="table" style="margin-top:20px">
+        <thead class="bg-primary text-light">
+            <tr>
+                <th>#</th>
+                <th>Titulo</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cit of citas; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{cit.titulo}}</td>
+                <td><a href = "cit.link" target="_blank">Ir...</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="idu ==='administrador'">
+    <div *ngIf="opcion === 1">
+        <div><button class="buttonB" (click)="cambiarOpcion(2)"> Crear </button></div>
+    <table class="table" style="margin-top:20px">
+        <thead class="bg-primary text-light">
+            <tr>
+                <th>#</th>
+                <th>Titulo</th>
+                <th>Link</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cit of citas; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{cit.titulo}}</td>
+                <td><a href = "{{cit.link}} " target="_blank" >Ir...</a></td>
+                <td><button class="buttonV"(click)="editar(cit._id)"> Editar </button></td>
+                <td><button class="buttonR" (click)="eliminar(cit._id)"> Eliminar </button></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div *ngIf="opcion ===2" class=" col-lg-9 col-sm-12 " >
+        <div class="main" >
+            <div class="row">
+                <div class="">
+                    <div>
+                        <button class="buttonB"(click)="volver()">
+                            <-- Volver
+                        </button>
+                    </div>
+                <form autocomplete="off"
+                [formGroup]="miFormulario"
+                (ngSubmit)="registro()"   >
+                    <div class="card mb-3 content" >
+                        <h1 class="m-3 pt-3">Agregar Cita</h1>
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Titulo: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="titulo"
+                            placeholder="Ingrese titulo de la cita">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Link: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="link"
+                            placeholder="Ingrese link ej: 'http://www.pagina...'">
+                        </div>
+                        <hr>
+
+                        <div>
+                        
+                            <button class="buttonV"
+                            type="submit">
+                               Crear
+                            </button>
+                        </div>
+                    </div>
+                </div>  
+                </form>
+             </div>
+            </div>
+        </div>
+    </div>    
+    <div *ngIf="opcion ===3" class=" col-lg-9 col-sm-12 " >
+        <div class="main" >
+            <div class="row">
+                <div class="">
+                    <div>
+                        <button class="buttonB"(click)="volver()">
+                            <-- Volver
+                        </button>
+                    </div>
+                <form autocomplete="off"
+                [formGroup]="miFormulario2"
+                (ngSubmit)="actualizar(idc)"   >
+                    <div class="card mb-3 content" >
+                        <h1 class="m-3 pt-3">Editar cita</h1>
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Titulo: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="titulo"
+                            [ngModel]="titulos">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Link: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="link"
+                            [ngModel]="links">
+                        </div>
+                        <hr>
+
+                        <div>
+                        
+                            <button class="buttonV"
+                            type="submit">
+                               Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </div>  
+                </form>
+             </div>
+            </div>
+        </div>
+    </div>                    
+</div>

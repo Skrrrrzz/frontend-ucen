@@ -1,1 +1,263 @@
-<p>propuestas works!</p>
+<div *ngIf="rol === 'estudiante'">
+    <div class="container" >
+        <div class="main" *ngIf=" mostrarpro">
+            <h1>Propuestas</h1>
+            <div class="row col-lg-12">
+                <div class="col-md-12">
+                    <div class="card mb-12 content" *ngFor="let pro of prop">
+                     <h1 style="text-align: center;"> {{pro.titulo}}</h1>
+                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Profesor guia: </h5>
+                            </div>
+                            <div class="col-md-8">
+                                {{pro.autor[0].name}}
+                            </div>
+                        </div>
+                        <div class="row col-md-12" style="margin-top: 30px;">
+                            <button class="col-md-3 buttonB" style="text-align:center;" (click)="vermasE(pro._id)">
+                                    Ver más...
+                            </button>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="!mostrarpro" >
+    <div>
+        <button class="buttonB"(click)="volver()">
+                <-- Volver
+        </button>
+    </div>
+    <div class="main">
+        <div class="row">
+            <div class="col-md-8 mt-1">
+                <div class="card mb-3 content" >
+                    <h1 class="m-3 pt-3"></h1>
+                    <div class="card-body"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5> Titulo: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            <h5> {{titulos}}</h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5> Profesor guia: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            {{profesorguias}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5> Descricpción: </h5>
+                        </div>
+                        <div class="col-md-8 text-secondary">
+                            {{descipcions}}
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div *ngIf="rol === 'docente'">
+    <div class="container" >
+        <div class="main" *ngIf=" opcion === 1">
+            <h1>Mis propuestas</h1>
+            <button  class="buttonB" (click)="cambiarOpcion(3)"> Crear </button>
+            <div class="row col-lg-12">
+                <div class="col-md-12">
+                    <div class="card mb-12 content" *ngFor="let pro of propd">
+                     <h1 style="text-align: center;"> {{pro.titulo}}</h1>
+                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5> Profesor guia: </h5>
+                            </div>
+                            <div class="col-md-8">
+                                {{pro.autor[0].name}}
+                            </div>
+                        </div>
+                        <div class="row col-md-12" style="margin-top: 30px;">
+                            <button class="col-md-3 buttonB" style="text-align:center;" (click)="vermas(pro._id)" >
+                                    Ver más...
+                            </button>
+                            <button class="col-md-2 buttonV" style="text-align:center;" (click)="editar(pro._id)">
+                                 Editar
+                            </button>
+                            <button class="col-md-3 buttonV" style="text-align:center;"*ngIf="pro.enable === false" (click)="habilitar(pro._id)">
+                                Habilitar
+                            </button>
+                            <button class="col-md-3 buttonR" style="text-align:center;"*ngIf="pro.enable === true" (click)="deshabilitar(pro._id)">
+                                Deshabilitar
+                            </button>
+                            <button class="col-md-3 buttonR" style="text-align:center;" (click)="eliminar(pro._id)">
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="opcion === 2" >
+    <div>
+        <button class="buttonB"(click)="volver()">
+                <-- Volver
+        </button>
+    </div>
+    <div class="main">
+        <div class="row">
+            <div class="col-md-8 mt-1">
+                <div class="card mb-3 content" >
+                    <h1 class="m-3 pt-3"></h1>
+                    <div class="card-body"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5> Titulo: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            <h5> {{titulos}}</h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5> Profesor guia: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            {{profesorguias}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5> Descricpción: </h5>
+                        </div>
+                        <div class="col-md-8 text-secondary">
+                            {{descipcions}}
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="opcion === 3">
+    <div class=" col-lg-9 col-sm-12 " >
+        <div class="main" >
+            <div class="row">
+                <div>
+                    <button class="buttonB"(click)="volver()">
+                            <-- Volver
+                    </button>
+                </div>
+                <div class="">
+                <form autocomplete="off"
+                [formGroup]="miFormulario"
+                (ngSubmit)="crear()"   >
+                    <div class="card mb-3 content" >
+                        <h1 class="m-3 pt-3">Agregar propuesta</h1>
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Titulo: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="titulo"
+                            placeholder="Ingrese titulo de la propuesta">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Descripción: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="descripcion"
+                            placeholder="Ingrese descripcion de la propuesta">
+                        </div>
+                        <hr>
+
+                        <div>
+                        
+                            <button class="buttonV"
+                            type="submit">
+                               Crear
+                            </button>
+                        </div>
+                    </div>
+                </div>  
+                </form>
+             </div>
+            </div>
+        </div>
+    </div>            
+</div>
+<div *ngIf="opcion === 4">
+    <div class=" col-lg-9 col-sm-12 " >
+        <div class="main" >
+            <div class="row">
+                <div class="">
+                    <div>
+                        <button class="buttonB"(click)="volver()">
+                                <-- Volver
+                        </button>
+                    </div>
+                <form autocomplete="off"
+                [formGroup]="miFormulario2"
+                (ngSubmit)="actualizar(ide)"   >
+                    <div class="card mb-3 content" >
+                        <h1 class="m-3 pt-3">Agregar propuesta</h1>
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Titulo: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="titulo"
+                            [ngModel]="titulos">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5> Descripción: </h5>
+                            </div>
+                            <input class="col-md-9" 
+                            type = "text"
+                            formControlName="descripcion"
+                            [ngModel]="descipcions">
+                        </div>
+                        <hr>
+
+                        <div>
+                        
+                            <button class="buttonV"
+                            type="submit">
+                               Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </div>  
+                </form>
+             </div>
+            </div>
+        </div>
+    </div>            
+</div>
+</div>

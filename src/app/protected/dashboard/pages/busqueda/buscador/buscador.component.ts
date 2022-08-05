@@ -17,7 +17,7 @@ export class BuscadorComponent {
 
   hayError: boolean = false;
   termino: string = '';
-  documentos: Documentos[] = [];
+  documentos: any[] = [];
   constructor(private paginaService: PaginaService ) { }
 
   buscar() {
@@ -30,7 +30,9 @@ export class BuscadorComponent {
     {
       this.hayError = true;
     }
-    this.documentos = documento;
+   
+      this.documentos = documento;
+      console.log(this.documentos)
   })
   }
 

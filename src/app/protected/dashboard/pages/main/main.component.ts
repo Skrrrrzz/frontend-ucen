@@ -1,13 +1,15 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../auth/services/auth.service';
-import { navbarData } from './nav-data';
+import { navbarDataE } from './nav-data-estudiante';
+import { navbarDataD } from './nav-data-docente';
+import { navbarDataC } from './nav-data-coordinador';
+import { navbarDataA } from './nav-data-administrador';
 
 interface SideNavToggle{
   screenWidth: number;
   collapsed: boolean;
 }
-
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html'
@@ -16,6 +18,7 @@ export class MainComponent implements OnInit{
 
 
   opened: boolean = false;
+  public rol = '';
   get usuario(){
     return this.AuthService.usuario;
   }
@@ -25,7 +28,9 @@ export class MainComponent implements OnInit{
 
 ngOnInit(): void{
   this.screenWidth = window.innerWidth;
+  this.rol = String(localStorage.getItem('rol'));
 }
+
   logout(){
 
     this.router.navigateByUrl('/auth');
@@ -38,7 +43,10 @@ ngOnInit(): void{
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = false;
   screenWidth = 0;
-  navData = navbarData;
+  navDataE = navbarDataE;
+  navDataD = navbarDataD;
+  navDataC = navbarDataC;
+  navDataA = navbarDataA;
 
  
   

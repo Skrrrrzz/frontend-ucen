@@ -1,1 +1,73 @@
-<p>perfil works!</p>
+
+
+<div class="container" >
+    <div class="main">
+        <div class="row">
+            <div class="col-md-8 mt-1">
+                <div class="card mb-3 content" *ngFor="let dato of datos">
+                    <h1 class="m-3 pt-3">Perfil</h1>
+                    <div class="card-body"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5> Nombre: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            <h5> {{dato.name}}</h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5> Email: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            {{dato.email}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5> Rol: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            {{dato.rol}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" *ngIf="rol.toUpperCase() === 'ESTUDIANTE'">
+                        <div class="col-md-3">
+                            <h5> Semestre: </h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+                            {{dato.semestre}}
+                        </div>
+                    <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5> ¿Cambiar contraseña?: </h5>
+                        </div>
+                        <input class="col-md-1" (click)="habilitarpass()"
+                        type="checkbox">
+                    </div>
+                    <hr>
+                    <div class="row" *ngIf="pass">
+                        <div class="col-md-4">
+                            <h5> Contraseña:</h5>
+                        </div>
+                        <input class="col-md-7"
+                        type = "password"
+                        [(ngModel)] = "password"
+                        placeholder="Ingrese contraseña minimo 6 digitos">
+                        <hr style = "margin: 10px" class="col-md-11.5">
+                        <div>
+                            <button  class="buttonV"(click)="cambiarContrasena()" style="margin:15px;">
+                                Cambiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

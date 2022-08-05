@@ -17,7 +17,7 @@ export class LoginComponent {
     user: ['', [Validators.required, Validators.maxLength(8), Validators.minLength(7)]],
     password: ['',[Validators.required, Validators.minLength(6)]],
   });
- 
+  user: string = '';
   constructor(private fb: FormBuilder,
               private router: Router,
               private AuthService: AuthService) { }
@@ -28,10 +28,13 @@ export class LoginComponent {
     /*this.AuthService.validarToken()
         .subscribe(resp => console.log(resp));*/
     console.log(this.miFormulario.value);
+    this.user = this.miFormulario.value.user;
+    console.log(this.user+' prueba')
     const {user, password} = this.miFormulario.value;
     this.AuthService.login( user, password)
     .subscribe( ok => {
       console.log(ok);
+
       if(ok === true){
         this.router.navigateByUrl('/dashboard');
       }else{
