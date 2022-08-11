@@ -68,6 +68,7 @@ export class EntregasComponent implements OnInit {
       this.opcion=2;
     }else if (tipo === 3){
       this.entrega = 3;
+      this.opcion=2;
     }
   }
   onFileSelected(event:any){

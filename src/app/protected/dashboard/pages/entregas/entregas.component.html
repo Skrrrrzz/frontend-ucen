@@ -149,7 +149,10 @@
 <!-- fip -->
 <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 3" >
     <h1>FIP</h1>
-    
+    <div class="row text-center">
+    <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">Entrega</button>
+    <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">Retroalimentación</button>
+    </div>
     <table class="table  " style="margin-top:20px;">
         <thead class="bg-primary text-light">
             <tr>
@@ -161,13 +164,22 @@
             </tr>
         </thead>
         <tbody  *ngFor="let ent of entregas; let i = index">
-            <tr *ngIf=" ent.tipo ==='fip'">
+            <tr *ngIf="opcion ===2 && ent.tipo ==='fip'">
                 <td >{{i + 1}}</td>
                 <td >{{ent.titulo}}</td>
                 <td >{{ent.autor[0].name}}</td>
                 <td>{{ent.fecha}}</td>
                 <td ><span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span></td>
             </tr> 
+        <tbody *ngFor="let ret of retro; let i = index">
+                <tr *ngIf="opcion===3 && ret.tipo === 'fip'">
+                    <td>{{i + 1}}</td>
+                    <td>{{ret.titulo}}</td>
+                    <td>{{ret.autor[0].name}}</td>
+                    <td>{{ret.fecha}}</td>
+                    <td> <span class="spanlink" (click)="descargaArchivo(ret.documento,ret.titulo)"> DESCARGAR</span> </td>
+                </tr>
+            </tbody>
         <tbody>
 
     </table>
@@ -289,27 +301,29 @@
                 
             </tbody>      
         </table>
+
+        <div class="card-body" *ngIf="entrega === 1 && profeg === true">
+            <h1>Subir retroalimentacion</h1>
+            <br>
+            <select name="drop" id="d" class="form-control"  [(ngModel)]="tipoEntrega">
+                <option value="0"> Seleccione una opcion</option>
+                <option value="33"> 33%</option>
+                <option value="66"> 66%</option>
+                <option value="99"> 99%</option>
+                <option value="100"> 100%</option>
+            </select>
+           <br>
+           <label id="test1"> Archivo Retroalimentacion : </label>
+           <input type="file" id="test1" name="test1" accept=".pdf"  *ngIf="tipoEntrega!=='0' " (change)="onFileSelectedRetro($event)" />
+           <br> <br>
+           <label id="test2"> Archivo Forma Evaluacion  : </label>
+           <input type="file" id="test2" name="test2" accept=".pdf"  *ngIf="tipoEntrega!=='0' " (change)="onFileSelectedEval($event)"/>
+           <br> <br>
+            <button (click)="subirRetro()" *ngIf="nombreArchivoRetro !== '' && nombreArchivoEval!=='' && tipoEntrega!== '0' " class="buttonV"> Subir Archivo</button>
+                
+        </div>
     </div>
-    <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 1 && profeg === true">
-        <h1>Subir retroalimentacion</h1>
-        <br>
-        <select name="drop" id="d" class="form-control"  [(ngModel)]="tipoEntrega">
-            <option value="0"> Seleccione una opcion</option>
-            <option value="33"> 33%</option>
-            <option value="66"> 66%</option>
-            <option value="99"> 99%</option>
-            <option value="100"> 100%</option>
-        </select>
-       <br>
-       <label id="test1"> Archivo Retroalimentacion : </label>
-       <input type="file" id="test1" name="test1" accept=".pdf"  *ngIf="tipoEntrega!=='0' " (change)="onFileSelectedRetro($event)" />
-       <br> <br>
-       <label id="test2"> Archivo Forma Evaluacion  : </label>
-       <input type="file" id="test2" name="test2" accept=".pdf"  *ngIf="tipoEntrega!=='0' " (change)="onFileSelectedEval($event)"/>
-       <br> <br>
-        <button (click)="subirRetro()" *ngIf="nombreArchivoRetro !== '' && nombreArchivoEval!=='' && tipoEntrega!== '0' " class="buttonV"> Subir Archivo</button>
-            
-    </div>
+    
     
     <!-- entregas -->
     <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 2" >
@@ -321,7 +335,7 @@
             <button class="list-group-item " style="width:25% ;" [ngClass]=" opcion === 5? inputActiveClass:''"   (click)="cambiarOpcion(5)">100%</button>
 
         </div>
-        <table class="table  " style="margin-top:20px;">
+        <table class="table" style="margin-top:20px;">
             <thead class="bg-primary text-light">
                 <tr>
                     <th>#</th>
@@ -369,7 +383,10 @@
     <!-- fip -->
     <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 3" >
         <h1>FIP</h1>
-        
+        <div class="row text-center">
+        <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">Entrega</button>
+    <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">Retroalimentación</button>
+            </div>
         <table class="table  " style="margin-top:20px;">
             <thead class="bg-primary text-light">
                 <tr>
@@ -380,12 +397,21 @@
                 </tr>
             </thead>
             <tbody  *ngFor="let ent of entregas; let i = index">
-                <tr *ngIf="ent.tipo ==='fip'">
+                <tr *ngIf="opcion === 2 && ent.tipo ==='fip'">
                     <td >{{i + 1}}</td>
                     <td >{{ent.titulo}}</td>
                     <td >{{ent.autor[0].name}}</td>
                     <td ><span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span></td>                </tr> 
             <tbody>
+            <tbody *ngFor="let ret of retro; let i = index">
+                    <tr *ngIf="opcion===3 && ret.tipo === 'fip'">
+                        <td>{{i + 1}}</td>
+                        <td>{{ret.titulo}}</td>
+                        <td>{{ret.autor[0].name}}</td>
+                        <td>{{ret.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(ret.documento,ret.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+            </tbody>
 
         </table>
         <br>
@@ -572,7 +598,10 @@
     <!-- fip -->
     <div class="col-lg-9 col-sm-12 " *ngIf="entrega === 3" >
         <h1>FIP</h1>
-        
+        <div class="row text-center">
+        <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 2? inputActiveClass:''"   (click)="cambiarOpcion(2)">Entrega</button>
+        <button class="list-group-item " style="width:25% ;"[ngClass]=" opcion === 3? inputActiveClass:''"   (click)="cambiarOpcion(3)">Retroalimentación</button>
+        </div>
         <table class="table  " style="margin-top:20px;">
             <thead class="bg-primary text-light">
                 <tr>
@@ -584,7 +613,7 @@
                 </tr>
             </thead>
             <tbody  *ngFor="let ent of entregas; let i = index">
-                <tr *ngIf=" ent.tipo ==='fip'">
+                <tr *ngIf=" opcion === 2 && ent.tipo ==='fip'">
                     <td >{{i + 1}}</td>
                     <td >{{ent.titulo}}</td>
                     <td >{{ent.autor[0].name}}</td>
@@ -592,6 +621,15 @@
                     <td> <span class="spanlink" (click)="descargaArchivo(ent.documento,ent.titulo)"> DESCARGAR</span> </td>
                 </tr> 
             <tbody>
+                <tbody *ngFor="let ret of retro; let i = index">
+                    <tr *ngIf="opcion===3 && ret.tipo === 'fip'">
+                        <td>{{i + 1}}</td>
+                        <td>{{ret.titulo}}</td>
+                        <td>{{ret.autor[0].name}}</td>
+                        <td>{{ret.fecha}}</td>
+                        <td> <span class="spanlink" (click)="descargaArchivo(ret.documento,ret.titulo)"> DESCARGAR</span> </td>
+                    </tr>
+                </tbody>
         </table>
         <br>
     </div>

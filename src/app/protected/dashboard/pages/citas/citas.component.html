@@ -16,7 +16,7 @@
             <tr *ngFor="let cit of citas; let i = index;">
                 <td>{{i + 1}}</td>
                 <td>{{cit.titulo}}</td>
-                <td><a href = "cit.link" target="_blank">Ir...</a></td>
+                <td><a href = "{{cit.link}}" target="_blank">Ir...</a></td>
             </tr>
         </tbody>
     </table>

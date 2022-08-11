@@ -200,6 +200,8 @@ export class AdministrarUsuarioComponent implements OnInit {
       if(ok.ok === true){
         Swal.fire('Listo','Usuario creado correctamente','success')
         this.miFormulario.setValue({user:'',password:'',email:'',name:'',rol:'',semestre:'',enable:true}) 
+        this.cambiarOpcion(2)
+        this.cambiarOpcion(1)
       }else{
         Swal.fire('Error',ok,'error');
       }
@@ -213,6 +215,8 @@ export class AdministrarUsuarioComponent implements OnInit {
       if(ok.ok === true){
         Swal.fire('Listo','Documento creado correctamente','success')
         this.miFormulario5.setValue({titulo:'',autor:'',categoria:'',linkB:'',linkR:''}) 
+        this.cambiarOpcion(6)
+        this.cambiarOpcion(7)
       }else{
         Swal.fire('Error',ok,'error');
       }
@@ -495,6 +499,8 @@ export class AdministrarUsuarioComponent implements OnInit {
       if(ok.ok === true){
         Swal.fire('Listo','Proyecto creado correctamente','success')
         this.miFormulario3.setValue({titulo:'',alumno:'',alumno2:'',profeguia:'',profeinformante:'',profeinformante2:'',profeinformante3:'',coordinador:'',profesorPt1, aceptado: false,enable:true}) 
+        this.cambiarOpcion(3)
+        this.cambiarOpcion(4)
       }else{
         Swal.fire('Error',ok,'error');
       }
