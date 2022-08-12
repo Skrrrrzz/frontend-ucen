@@ -61,7 +61,7 @@ export class AdministrarUsuarioComponent implements OnInit {
   coordinador: Usuarios[] = [];
   datospro: Proyectos[] = [];
   datosproe: Proyectos[]=[];
-  datosD: Documentos[] =[];
+  datosD: any[] =[];
   datosC: any[] = [];
 
 
@@ -172,12 +172,15 @@ export class AdministrarUsuarioComponent implements OnInit {
         break;
         case 8:
         this.opcion=8;
+        this.datosD = [];
         this.traerDocumentos()
         this.datosC = [];
         this.cargarC()
         break;
         case 9:
         this.opcion=9;
+        this.datosD = [];
+        this.traerDocumentos();
         break;
         case 10:
           this.opcion = 10;
@@ -264,8 +267,13 @@ export class AdministrarUsuarioComponent implements OnInit {
   traerDocumentos(){
     this.paginaService.buscartodoDocumentos()
     .subscribe(datos =>{
-      this.datosD = datos;
+      for(var i=0; i < datos.length; i=i+1){
+        
+          this.datosD.push(datos[i]);
+
+      }
     })
+    console.log(this.datosD)
   }
   traerUsuarioE(){
     let n = 0;
