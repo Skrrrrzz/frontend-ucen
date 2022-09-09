@@ -418,7 +418,7 @@
         <div *ngIf="pt1">
         <input  type="file" id="test" name="test" accept=".pdf" ngModel='archivo' (change)="onFileSelected($event)"/>
         <br><br>
-            <button type="submit" class="buttonV"> Subir Archivo</button>
+            <button (click)="subirArchivos(true)" *ngIf="nombreArchivo !== '' " class="buttonV"> Subir Archivo</button>
         </div>
     </div>
 </div>
